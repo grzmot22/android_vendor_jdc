@@ -189,13 +189,13 @@ select build in "Build ROM" "Sync" "Sync and upstream merge" "Build Alucard Kern
         "Build ROM" ) buildROM; anythingElse; break;;
         "Sync" ) repoSync 1; anythingElse; break;;
         "Sync and upstream merge" ) repoSync 2; anythingElse; break;;
-        "Build Alucard Kernel" ) disabled; anythingElse; break;;
-        "Repack ROM" ) disabled; anythingElse; break;;
+        "Build Alucard Kernel" )  anythingElse; break;;
+        "Repack ROM" )  anythingElse; break;;
         "Make Clean" ) make clean; anythingElse; break;;
         "Make Clean (inc ccache)" ) makeclean; anythingElse; break;;
-	"Make Clean All (inc ccache+Alucard)" ) disabled; anythingElse; break;;
+	"Make Clean All (inc ccache+Alucard)" )  anythingElse; break;;
         "Push and flash" ) flashRom; break;;
-        "Build ROM, Kernel and Repackage"  ) disabled; anythingElse; break;;
+        "Build ROM, Kernel and Repackage"  )  anythingElse; break;;
 	"Exit" ) exit 0; break;;
     esac
 done
