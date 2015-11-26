@@ -72,14 +72,14 @@ makeclean(){
     ## Clean Alucard cache, including its compiler cache
     if [ "$aluclean" == "true" ]; then
 	cd "$ALU_DIR"
-	./clean-all-cr-4.9.4.sh
+	./clean-all.sh
 	croot
     fi
 }
 
 buildAlu() {
     cd "$ALU_DIR"
-    ./build_kernel_cr_4.9.4.sh
+    ./build_kernel.sh
     if [ "$?" == 0 ]; then
         echo "Alucard Kernel built, ready to repack"
     else
