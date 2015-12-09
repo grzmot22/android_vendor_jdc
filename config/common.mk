@@ -1,5 +1,5 @@
 # BSOD Killer
-#PRODUCT_COPY_FILES += \
+PRODUCT_COPY_FILES += \
     vendor/jdc/prebuilt/common/bin/bsod_killer:system/bin/bsod_killer
 
 # Bootanimation
@@ -7,7 +7,7 @@ PRODUCT_COPY_FILES += \
     vendor/jdc/prebuilt/common/bootanimation/bootanimation.zip:system/media/bootanimation.zip
 
 # Changelog
-#PRODUCT_COPY_FILES += \
+PRODUCT_COPY_FILES += \
     vendor/jdc/Changelog.md:system/etc/Changelog.md
 
 # Custom format script
@@ -52,5 +52,5 @@ PRODUCT_COPY_FILES += \
     vendor/jdc/proprietary/Toolbox.apk:system/priv-app/Toolbox/Toolbox.apk
 
 # Take a logcat
-#PRODUCT_COPY_FILES += \
+PRODUCT_COPY_FILES += \
     vendor/jdc/prebuilt/common/bin/take_log:system/bin/take_log
