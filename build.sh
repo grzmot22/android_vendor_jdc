@@ -63,7 +63,7 @@ repoSync(){
             ORIGIN=$(sed -n '3p' UPSTREAM)
             PUSH_BRANCH=
             git pull https://www.github.com/"$UPSTREAM" "$BRANCH"
-            git push "$ORIGIN" HEAD:opt-"$BRANCH"
+            git push "$ORIGIN" HEAD:opt-"$BRANCH"-temasek
             croot
         done <<< "$CHECK"
     fi
