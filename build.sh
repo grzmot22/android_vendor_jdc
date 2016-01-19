@@ -32,12 +32,6 @@ ALU_CLEAN=clean-all.sh
 FILENAME=OptimizedCM-"$CM_VER"-"$(date +%Y%m%d)"-"$TARGET"
 PREBUILTS=vendor/jdc/proprietary
 
-disabled() {
-    # For features not yet enabled
-    echo -e "\e[1;91mFeature not yet enabled for Optimized CM $CM_VER"
-    echo -e "\e[0m "
-}
-
 buildROM () { 
     if [ ! -d $PREBUILTS ]; then
 	# Download Toolbox
@@ -92,6 +86,10 @@ makeclean(){
 
 buildAlu() {
     cd "$ALU_DIR"
+    if [ "$(cat $ALU_BUILD | grep "enforcing")" != "" ]; then
+    # Convert to androidboot.selinux
+    sed -i 's/enforcing=0 selinux=1/androidboot.selinux=permissive/' $ALU_BUILD
+    fi
     ./$ALU_BUILD
     if [ "$?" == 0 ]; then
         echo "Alucard Kernel built, ready to repack"
@@ -200,7 +198,7 @@ select build in "Build ROM" "Sync" "Sync and upstream merge" "Build Alucard Kern
         "Repack ROM" ) repackRom; anythingElse; break;;
         "Make Clean" ) make clean; anythingElse; break;;
         "Make Clean (inc ccache)" ) makeclean; anythingElse; break;;
-        "Make Clean All (inc ccache+Alucard)" ) aluclean=true; makeclean; anythingElse; break;;
+	"Make Clean All (inc ccache+Alucard)" ) aluclean=true; makeclean; anythingElse; break;;
         "Push and flash" ) flashRom; break;;
         "Build ROM, Kernel and Repackage"  ) fullbuild=true; buildROM; checkRamdisk; repackRom; anythingElse; break;;
 	"Exit" ) exit 0; break;;
