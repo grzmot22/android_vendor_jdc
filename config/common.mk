@@ -6,6 +6,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     vendor/jdc/prebuilt/common/bootanimation/bootanimation.zip:system/media/bootanimation.zip
 
+# BSOD Killer
+PRODUCT_COPY_FILES += \
+    vendor/jdc/prebuilt/common/bin/bsod_killer:system/bin/bsod_killer
+
 # Changelog
 PRODUCT_COPY_FILES += \
     vendor/jdc/Changelog.md:system/etc/Changelog.md
@@ -41,7 +45,7 @@ PRODUCT_PACKAGE_OVERLAYS += vendor/jdc/overlay/common
 PRODUCT_PACKAGES += \
     SunBeam \
     STweaks \
-    OTAUpdates
+
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.ota.romname=Optimized-CM-13 \
     ro.ota.version=$(shell date -u +%Y%m%d) \

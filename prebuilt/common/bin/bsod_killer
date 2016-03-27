@@ -1,7 +1,7 @@
-#!/sbin/sh
+#!/system/bin/sh
 #
-# Copyright (c) 2015 Mattia "AntaresOne" D'Alleva
-# Copyright (c) 2015 JDCTeam
+# Copyright (c) 2015-2016 Mattia "AntaresOne" D'Alleva
+# Copyright (c) 2015-2016 JDCTeam
 #
 # BSOD Killer - prevent ROM's black screen of death and data lose.
 #
@@ -9,4 +9,4 @@
 rm -rf /data/system/recent_images
 rm -rf /data/system/recent_tasks
 # Stop service
-exit 0
+exit 0 
