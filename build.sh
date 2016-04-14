@@ -59,6 +59,12 @@ repoSync(){
         while read -r line; do
             echo "Upstream merging for $line"
             cd  "$line"
+            UPSTREAMS=$(sed -n '1p' UPSTREAMS)
+            BRANCHS=$(sed -n '2p' UPSTREAMS)
+            ORIGINS=$(sed -n '3p' UPSTREAMS)
+            PUSH_BRANCHS=
+            git pull https://www.github.com/"$UPSTREAMS" "$BRANCHS"
+            git push "$ORIGINS" HEAD:opt-"$BRANCHS"-temasek
             UPSTREAM=$(sed -n '1p' UPSTREAM)
             BRANCH=$(sed -n '2p' UPSTREAM)
             ORIGIN=$(sed -n '3p' UPSTREAM)
