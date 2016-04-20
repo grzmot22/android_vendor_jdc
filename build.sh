@@ -71,6 +71,12 @@ repoSync(){
             PUSH_BRANCH=
             git pull https://www.github.com/"$UPSTREAM" "$BRANCH"
             git push "$ORIGIN" HEAD:opt-"$BRANCH"-temasek
+            UPSTREAMJ=$(sed -n '1p' JDCT)
+            BRANCHJ=$(sed -n '2p' JDCT)
+            ORIGINJ=$(sed -n '3p' JDCT)
+            PUSH_BRANCHJ=
+            git pull https://www.github.com/"$UPSTREAMJ" "$BRANCHJ"
+            git push "$ORIGINS" HEAD:"$BRANCHJ"-temasek
             croot
         done <<< "$CHECK"
     fi
