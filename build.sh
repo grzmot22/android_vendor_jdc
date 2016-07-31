@@ -183,7 +183,9 @@ useAroma()
     echo " "
     LATEST=$(ls -t $OUT | grep -v .zip.md5 | grep .zip | head -n 1)
     TEMP2=tmpAroma
-
+    if [ -d "$TEMP2" ]; then 
+    rm -rf "$TEMP2"
+    fi
     mkdir "$TEMP2"
     echo "Unpacking ROM to temp folder"
     unzip -q "$OUT"/"$LATEST" -d"$TEMP2"
