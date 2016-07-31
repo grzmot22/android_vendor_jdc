@@ -231,7 +231,7 @@ select build in "Build ROM" "Sync" "Sync and upstream merge" "Build Alucard Kern
 	"Make Clean All (inc ccache+Alucard)" ) aluclean=true; makeclean; anythingElse; break;;
         "Push and flash" ) flashRom; break;;
         "Build ROM, Kernel and Repackage"  ) fullbuild=true; buildROM; checkRamdisk; repackRom; anythingElse; break;;
-	"(Silently)Build ROM, Kernel and Repackage with Aroma Installer" ) fullbuild=true; buildROM; repackRom; useAroma; anythingElse; break;;
+	"(Silently)Build ROM, Kernel and Repackage with Aroma Installer" ) fullbuild=true; buildROM; buildAlu; repackRom; useAroma; anythingElse; break;;
 	"Add Aroma Installer to ROM" ) useAroma; anythingElse; break;;
 	"Exit" ) exit 0; break;;
     esac
