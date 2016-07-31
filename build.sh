@@ -27,6 +27,7 @@ TARGET=jflte
 VARIANT=userdebug
 CM_VER=13
 ALU_DIR=kernel/samsung/alucard24
+AROMA_DIR=aroma
 ALU_BUILD=build_kernel.sh
 ALU_CLEAN=clean-all.sh
 FILENAME=OptimizedCM-"$CM_VER"-"$(date +%Y%m%d)"-"$TARGET"
@@ -177,6 +178,33 @@ anythingElse() {
     done ;
 }
 
+useAroma()
+{
+    echo " "
+    LATEST=$(ls -t $OUT | grep -v .zip.md5 | grep .zip | head -n 1)
+    TEMP2=tmpAroma
+
+    mkdir "$TEMP2"
+    echo "Unpacking ROM to temp folder"
+    unzip -q "$OUT"/"$LATEST" -d"$TEMP2"
+    echo "Removing META-INF folder"
+    rm -rf "$TEMP2"/META-INF
+    echo "Copying Aroma Installer"
+    cp -r "$AROMA_DIR"/jdc "$TEMP2"/jdc
+    cp -r "$AROMA_DIR"/xbin "$TEMP2"/xbin
+    cp -r "$AROMA_DIR"/META-INF "$TEMP2"/META-INF
+
+    cd "$TEMP2"
+    echo "Repacking ROM"
+    zip -rq9 ../"$FILENAME".zip *
+    cd ..
+    echo "Creating MD5"
+    md5sum "$FILENAME".zip > "$FILENAME".zip.md5
+    echo "Cleaning up"
+    rm -rf "$TEMP2"
+    echo "Done"
+}
+
 echo " "
 echo " "
 echo -e "\e[1;91mWelcome to the $TEAM_NAME build script"
@@ -191,7 +219,7 @@ echo -e "\e[1;91mPlease make your selections carefully"
 echo -e "\e[0m "
 echo " "
 echo "Do you wish to build, sync or clean?"
-select build in "Build ROM" "Sync" "Sync and upstream merge" "Build Alucard Kernel" "Repack ROM" "Make Clean" "Make Clean (inc ccache)" "Make Clean All (inc ccache+Alucard)" "Push and flash" "Build ROM, Kernel and Repackage" "Exit"; do
+select build in "Build ROM" "Sync" "Sync and upstream merge" "Build Alucard Kernel" "Repack ROM" "Make Clean" "Make Clean (inc ccache)" "Make Clean All (inc ccache+Alucard)" "Push and flash" "Build ROM, Kernel and Repackage" "(Silently)Build ROM, Kernel and Repackage with Aroma Installer" "Add Aroma Installer to ROM" "Exit"; do
     case $build in
         "Build ROM" ) buildROM; anythingElse; break;;
         "Sync" ) repoSync 1; anythingElse; break;;
@@ -203,6 +231,8 @@ select build in "Build ROM" "Sync" "Sync and upstream merge" "Build Alucard Kern
 	"Make Clean All (inc ccache+Alucard)" ) aluclean=true; makeclean; anythingElse; break;;
         "Push and flash" ) flashRom; break;;
         "Build ROM, Kernel and Repackage"  ) fullbuild=true; buildROM; checkRamdisk; repackRom; anythingElse; break;;
+	"(Silently)Build ROM, Kernel and Repackage with Aroma Installer" ) fullbuild=true; buildROM; repackRom; useAroma; anythingElse; break;;
+	"Add Aroma Installer to ROM" ) useAroma; anythingElse; break;;
 	"Exit" ) exit 0; break;;
     esac
 done
